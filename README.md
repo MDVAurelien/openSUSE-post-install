@@ -2,7 +2,7 @@ openSUSE-post-install :
 
 Version: 12.3
 
-License: GPLv3
+License: LGPLv3
 
 Original source can be found at https://github.com/MDVAurelien/openSUSE-post-install/
 
