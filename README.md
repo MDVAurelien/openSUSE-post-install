@@ -12,7 +12,7 @@ You can get the latest version from the git repository:
 
 ## Usage:
 
-Run from source folder (root needed):
+Run from source folder (root):
 
     bash openSUSE-post-install-xx.x.sh
 
