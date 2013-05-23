@@ -23,5 +23,3 @@ openSUSE Post Install Script is a simple bash script for automating the reconfig
 It is compatible with openSUSE 12.3, as well as both 32 and 64 bit architectures 
 
 Feel free to copy, improve and distribute.
-
-Comming soon (23/05/2013)
