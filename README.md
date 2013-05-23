@@ -1,6 +1,6 @@
 openSUSE-post-install :
 
-Version: 12.3
+Version: 12.3 (Dartmouth)
 
 License: LGPLv3
 
