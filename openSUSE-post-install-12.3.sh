@@ -42,7 +42,7 @@ ZYPPER='zypper --no-cd'
 # Create and move on a tmp dir
 move_tmp_dir() {
 TMP_DIR='/tmp/openSUSE-post-install'
-if [ -e $TMP_DIR ]; then
+if [ ! -e $TMP_DIR ]; then
   mkdir -p $TMP_DIR
 fi
 cd $TMP_DIR
