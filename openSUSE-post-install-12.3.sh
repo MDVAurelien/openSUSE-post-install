@@ -21,8 +21,8 @@
 
 
 RELEASE='12.3' # Do not modify this variable, it's use by repositories URL
-VERSION='0.8' # It's the version of this file
-LICENSE='LGPL'
+VERSION='0.9.0' # It's the version of this file
+LICENSE='LGPLv3'
 
 clear
 echo ''
@@ -182,7 +182,7 @@ install_various_servers() {
      install_various_servers
  # This package contains the YaST2 component for DHCP server configuration.
  elif [ "$INPUT" -eq 4 ]; then
-     $ZYPPER install yast2-dhcp-server
+     $ZYPPER install yast2-dhcp-server dhcp-server
      echo 'Done.'
      install_various_servers
  # Provides basic configuration of an OpenLDAP Server over YaST2 Control Center and during installation.
@@ -202,17 +202,17 @@ install_various_servers() {
      install_various_servers
  # Provides basic configuration of a Kerberos server over the YaST2 Control Center.
  elif [ "$INPUT" -eq 8 ]; then
-     $ZYPPER install yast2-kerberos-server
+     $ZYPPER install yast2-kerberos-server krb5-server krb5-client
      echo 'Done.'
      install_various_servers
  # This package contains the YaST2 component for DNS server configuration.
  elif [ "$INPUT" -eq 9 ]; then
-     $ZYPPER install yast2-dns-server
+     $ZYPPER install yast2-dns-server bind
      echo 'Done.'
      install_various_servers
  # This package contains the YaST2 component for HTTP server (Apache2) configuration.
  elif [ "$INPUT" -eq 10 ]; then
-     $ZYPPER install yast2-http-server
+     $ZYPPER install yast2-http-server apache2 apache2-prefork
      echo 'Done.'
      install_various_servers
  # Return
