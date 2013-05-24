@@ -263,7 +263,7 @@ install_virtualization_tools() {
  # Oracle VM VirtualBox
  if [ "$INPUT" -eq 1 ]; then
    echo 'Searching VirtualBox...'
-   zypper --no-cd search -i VirtualBox | grep -i 'Oracle VM VirtualBox' # Check if teamviewer is install (if not, download and install)
+   $ZYPPER search -i VirtualBox | grep -i 'Oracle VM VirtualBox' # Check if teamviewer is install (if not, download and install)
    if [ $? -ne 0 ]; then
      move_tmp_dir
      if [ $(uname -i) = 'i386' ]; then
