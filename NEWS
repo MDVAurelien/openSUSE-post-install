@@ -1,0 +1,11 @@
+---------------
+Version 0.9.0 -
+---------------
+
+  * Add some dependencies for DHCP server, Kerberos server, DNS server, HTTP server (Apache2)
+
+---------------
+Version 0.8.0 -
+---------------
+
+First release
