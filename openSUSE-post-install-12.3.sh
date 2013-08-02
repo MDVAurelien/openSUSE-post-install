@@ -21,7 +21,7 @@
 
 
 RELEASE='12.3' # Do not modify this variable, it's use by repositories URL
-VERSION='0.9.1' # It's the version of this file
+VERSION='0.9.2' # It's the version of this file
 LICENSE='LGPLv3'
 
 clear
