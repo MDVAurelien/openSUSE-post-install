@@ -267,9 +267,9 @@ install_virtualization_tools() {
    if [ $? -ne 0 ]; then
      move_tmp_dir
      if [ $(uname -i) = 'i386' ]; then
-       wget http://download.virtualbox.org/virtualbox/4.2.12/VirtualBox-4.2-4.2.12_84980_openSUSE114-1.i586.rpm
+       wget http://download.virtualbox.org/virtualbox/4.2.16/VirtualBox-4.2-4.2.16_86992_openSUSE114-1.i586.rpm
      elif [ $(uname -i) = 'x86_64' ]; then
-         wget http://download.virtualbox.org/virtualbox/4.2.12/VirtualBox-4.2-4.2.12_84980_openSUSE114-1.x86_64.rpm
+         wget download.virtualbox.org/virtualbox/4.2.16/VirtualBox-4.2-4.2.16_86992_openSUSE114-1.x86_64.rpm
      fi
        echo 'Installing Oracle VM VirtualBox...'
        $ZYPPER install kernel-devel \
