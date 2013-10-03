@@ -266,17 +266,20 @@ install_virtualization_tools() {
    $ZYPPER search -i VirtualBox | grep -i 'Oracle VM VirtualBox' # Check if teamviewer is install (if not, download and install)
    if [ $? -ne 0 ]; then
      move_tmp_dir
+     echo 'Installing Oracle VM VirtualBox...'
+     $ZYPPER install kernel-devel \
+                     kernel-desktop-devel \
+                     gcc \
+                     make
      if [ $(uname -i) = 'i386' ]; then
-       wget http://download.virtualbox.org/virtualbox/4.2.16/VirtualBox-4.2-4.2.16_86992_openSUSE114-1.i586.rpm
+       echo 'Downloading Oracle VM VirtualBox i586...'
+       wget http://download.virtualbox.org/virtualbox/4.2.18/VirtualBox-4.2-4.2.18_88780_openSUSE114-1.i586.rpm
+       $ZYPPER install VirtualBox-4.2-4.2.18_88780_openSUSE114-1.i586.rpm
      elif [ $(uname -i) = 'x86_64' ]; then
-         wget download.virtualbox.org/virtualbox/4.2.16/VirtualBox-4.2-4.2.16_86992_openSUSE114-1.x86_64.rpm
+         echo 'Downloading Oracle VM VirtualBox x86_64...'
+         wget http://download.virtualbox.org/virtualbox/4.2.18/VirtualBox-4.2-4.2.18_88780_openSUSE114-1.x86_64.rpm
+         $ZYPPER install VirtualBox-4.2-4.2.18_88780_openSUSE114-1.x86_64.rpm
      fi
-       echo 'Installing Oracle VM VirtualBox...'
-       $ZYPPER install kernel-devel \
-                       kernel-desktop-devel \
-                       gcc \
-                       make \
-                       VirtualBox-4.2-4.2.12_84980_openSUSE114-1.x86_64.rpm
        rm *.rpm # Clean rpm in custom tmp dir
    fi
    echo 'Done.'
