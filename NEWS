@@ -1,4 +1,11 @@
 ---------------
+Version 0.9.3 -
+---------------
+
+ * Update Oracle Virtualbox 4.2.16 ==> 4.2.18 (x86_64 & i586)
+ * FIX the no install Oracle Virtualbox for i586
+ 
+---------------
 Version 0.9.2 -
 ---------------
 
