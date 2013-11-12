@@ -1,6 +1,6 @@
 openSUSE-post-install :
 
-Version: 12.3 (Dartmouth)
+Version: 12.3, 13.1
 
 License: LGPLv3
 
@@ -14,12 +14,12 @@ You can get the latest version from the git repository:
 
 Run from source folder (root):
 
-    bash openSUSE-post-install-xx.x.sh
+    bash openSUSE-post-install.sh
 
 ## About:
 
 openSUSE Post Install Script is a simple bash script (highly configurable and based on Libzypp) for automating the reconfiguration of a fresh openSUSE –installing favourite applications, some servers, virtualization tools etc.. 
 
-It is compatible with openSUSE 12.3, as well as both 32 and 64 bit architectures 
+It is compatible with openSUSE 12.3 and 13.1, as well as both 32 and 64 bit architectures 
 
 Feel free to copy, improve and distribute.
