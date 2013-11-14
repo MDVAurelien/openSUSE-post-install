@@ -189,9 +189,15 @@ install_various_servers() {
    install_various_servers
  # This package contains the YaST2 component for SSH server configuration.
  elif [ "$INPUT" -eq 2 ]; then
-     $ZYPPER install yast2-sshd
-     echo 'Done.'
-     install_various_servers
+     case $RELEASE in
+          '12.3')
+            $ZYPPER install yast2-sshd
+            echo 'Done.'
+            install_various_servers ;;
+           * ) 
+            echo "This package is not supported in openSUSE $RELEASE"
+            install_various_servers
+     esac
  # This package contains the YaST2 component for FTP configuration. It can configure two daemons: pure-ftpd and vsftpd.
  elif [ "$INPUT" -eq 3 ]; then
      $ZYPPER install yast2-ftp-server
