@@ -94,6 +94,10 @@ echo 'Add Packman Repository'
   zypper addrepo -f "http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_$RELEASE/" "Packman Repository"
   echo 'Done.'
  fi
+ 
+ # Refresh repositories
+ echo 'Updating repositories information...'
+ $ZYPPER refresh
 main
 }
 
