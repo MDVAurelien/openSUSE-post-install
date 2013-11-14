@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # Description:
-# A post-installation bash script for openSUSE 12.3 and 13.1 (no test for 13.1)
+# A post-installation bash script for openSUSE 12.3 and 13.1
 #
 # Authors : MDVAurelien (Aurélien Sallé) <android.aurelien.salle@gmail.com>
 #
