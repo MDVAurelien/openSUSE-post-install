@@ -20,7 +20,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 RELEASE=$(cat /etc/os-release | grep -i version_id | awk '{ print $1; }' | tr --delete [_='"'][A-Z])
-VERSION='0.9.4' # It's the version of this file
+VERSION='0.9.5' # It's the version of this file
 LICENSE='LGPLv3'
 
 clear
@@ -373,10 +373,10 @@ install_thirdparty_applications() {
  
  # Steam
  elif [ "$INPUT" -eq 3 ]; then
-  zypper lr -u | grep -i "http://download.opensuse.org/repositories/games/openSUSE_$RELEASE"
+  zypper lr -u | grep -i "http://download.opensuse.org/repositories/games:/tools/openSUSE_$RELEASE"
   if [ $? -ne 0 ]; then
    echo 'Add official community repositories Games'
-   zypper addrepo -f "http://download.opensuse.org/repositories/games/openSUSE_$RELEASE/" "openSUSE BuildService - Games"
+   zypper addrepo -f "http://download.opensuse.org/repositories/games:/tools/openSUSE_$RELEASE/" "Games Tools"
   fi
   $ZYPPER install steam
   echo 'Done.'
