@@ -5,7 +5,7 @@ Version 0.9.4 -
  * Automatically obtain the release number in /etc/os-release
  * Prepare the script for multiple compatibility (12.3 & 13.1)
  * Remove unofficial community repositories : Strahlex
- * Add unofficial community repositories : Filesystems$
+ * Add unofficial community repositories : Filesystems
  * Main function menu has been redesigned with case
 
 ---------------
