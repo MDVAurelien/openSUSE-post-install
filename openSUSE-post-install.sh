@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-RELEASE=$(cat /etc/os-release | grep -i version_id | awk '{ print $1; }' | tr --delete [_='"'][A-Z])
+RELEASE=$(cat /etc/os-release | grep -i version_id | tr --delete [_='"'][A-Z])
 VERSION='0.9.5' # It's the version of this file
 LICENSE='LGPLv3'
 
