@@ -145,6 +145,7 @@ install_favorite_applications() {
                  filezilla \
                  grsync \
                  inkscape \
+                 krename \
                  MozillaThunderbird
  echo 'Done.'
  main
