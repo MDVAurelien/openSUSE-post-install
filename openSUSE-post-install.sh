@@ -75,19 +75,19 @@ system_patch() {
  main
 }
 
-# openSUSE BuildService - KDE:Extra
+# Install official community repositories (you can put here other official repositories)
 install_official_com_repo() {
  echo 'Installing and refresh official community repositories ...'
 
- # openSUSE BuildService - Games
+ # openSUSE BuildService - KDE:Extra Repository
  zypper lr -u | grep -i "http://download.opensuse.org/repositories/games/openSUSE_$RELEASE"
  if [ $? -ne 0 ]; then
   echo 'Add official community repositories Games'
-  zypper addrepo -f "http://download.opensuse.org/repositories/KDE:/Extra/openSUSE_$RELEASE/" "openSUSE BuildService - KDE:Extra"
+  zypper addrepo -f "http://download.opensuse.org/repositories/games/openSUSE_$RELEASE/" "openSUSE BuildService - KDE:Extra"
   echo 'Done.'
  fi
  
- # openSUSE BuildService - Games
+ # openSUSE BuildService - Games Repository
  zypper lr -u | grep -i "http://download.opensuse.org/repositories/games/openSUSE_$RELEASE"
  if [ $? -ne 0 ]; then
   echo 'Add official community repositories Games'
@@ -103,7 +103,7 @@ echo 'Add Packman Repository'
   echo 'Done.'
  fi
  
-  # filesystems
+  # filesystems Repository
  zypper lr -u | grep -i "http://download.opensuse.org/repositories/filesystems/openSUSE_$RELEASE"
  if [ $? -ne 0 ]; then
   echo 'Add Filesystems repositories'
