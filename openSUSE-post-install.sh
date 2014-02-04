@@ -75,10 +75,18 @@ system_patch() {
  main
 }
 
-# Install official community repositories (you can put here other official repositories)
+# openSUSE BuildService - KDE:Extra
 install_official_com_repo() {
  echo 'Installing and refresh official community repositories ...'
 
+ # openSUSE BuildService - Games
+ zypper lr -u | grep -i "http://download.opensuse.org/repositories/games/openSUSE_$RELEASE"
+ if [ $? -ne 0 ]; then
+  echo 'Add official community repositories Games'
+  zypper addrepo -f "http://download.opensuse.org/repositories/KDE:/Extra/openSUSE_$RELEASE/" "openSUSE BuildService - KDE:Extra"
+  echo 'Done.'
+ fi
+ 
  # openSUSE BuildService - Games
  zypper lr -u | grep -i "http://download.opensuse.org/repositories/games/openSUSE_$RELEASE"
  if [ $? -ne 0 ]; then
@@ -92,6 +100,14 @@ install_official_com_repo() {
  if [ $? -ne 0 ]; then
 echo 'Add Packman Repository'
   zypper addrepo -f "http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_$RELEASE/" "Packman Repository"
+  echo 'Done.'
+ fi
+ 
+  # filesystems
+ zypper lr -u | grep -i "http://download.opensuse.org/repositories/filesystems/openSUSE_$RELEASE"
+ if [ $? -ne 0 ]; then
+  echo 'Add Filesystems repositories'
+  zypper addrepo -f "http://download.opensuse.org/repositories/filesystems/openSUSE_$RELEASE/" "openSUSE BuildService - filesystems" # for example, here you can get unetbootin
   echo 'Done.'
  fi
  
@@ -118,14 +134,6 @@ install_unofficial_com_repo() {
  if [ $? -ne 0 ]; then
   echo 'Add VLC repositories'
   zypper addrepo -f "http://download.videolan.org/pub/vlc/SuSE/$RELEASE/" "VLC"
-  echo 'Done.'
- fi
- 
- # Filesystems
- zypper lr -u | grep -i "http://download.opensuse.org/repositories/filesystems/openSUSE_13.1/$RELEASE/"
- if [ $? -ne 0 ]; then
-  echo 'Add Filesystems repositories'
-  zypper addrepo -f "http://download.opensuse.org/repositories/filesystems/openSUSE_$RELEASE/" "Filesystems" # for example, here you can get unetbootin
   echo 'Done.'
  fi
  
