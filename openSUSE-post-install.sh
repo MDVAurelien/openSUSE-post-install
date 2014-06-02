@@ -20,7 +20,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 RELEASE=$(cat /etc/os-release | grep -i version_id | tr --delete [_='"'][A-Z])
-VERSION='0.9.7' # It's the version of this file
+VERSION='0.9.8' # It's the version of this file
 LICENSE='LGPLv3'
 
 clear
@@ -31,7 +31,7 @@ echo '-------------------------------------------'
 
 # Are you root ?
 if [ "$UID" -ne 0 ]; then
- echo 'You must be root to execute this script'
+echo 'You must be root to execute this script'
  exit 10
 fi
 
@@ -39,7 +39,7 @@ fi
 case $RELEASE in
             '12.3');;
             '13.1');;
-            * ) 
+            * )
             echo "openSUSE $RELEASE is not supported !"
             exit 11
 esac
@@ -52,7 +52,7 @@ ZYPPER='zypper --no-cd'
 move_tmp_dir() {
 TMP_DIR='/tmp/openSUSE-post-install'
 if [ ! -d $TMP_DIR ]; then
- mkdir -p $TMP_DIR
+mkdir -p $TMP_DIR
 fi
 cd $TMP_DIR
 }
@@ -82,7 +82,7 @@ install_official_com_repo() {
  # openSUSE BuildService - KDE:Extra Repository
  zypper lr -u | grep -i "http://download.opensuse.org/repositories/games/openSUSE_$RELEASE"
  if [ $? -ne 0 ]; then
-  echo 'Add official community repositories Games'
+echo 'Add official community repositories Games'
   zypper addrepo -f "http://download.opensuse.org/repositories/games/openSUSE_$RELEASE/" "openSUSE BuildService - KDE:Extra"
   echo 'Done.'
  fi
@@ -90,7 +90,7 @@ install_official_com_repo() {
  # openSUSE BuildService - Games Repository
  zypper lr -u | grep -i "http://download.opensuse.org/repositories/games/openSUSE_$RELEASE"
  if [ $? -ne 0 ]; then
-  echo 'Add official community repositories Games'
+echo 'Add official community repositories Games'
   zypper addrepo -f "http://download.opensuse.org/repositories/games/openSUSE_$RELEASE/" "openSUSE BuildService - Games" # for example, here you can get openarena
   echo 'Done.'
  fi
@@ -106,7 +106,7 @@ echo 'Add Packman Repository'
   # filesystems Repository
  zypper lr -u | grep -i "http://download.opensuse.org/repositories/filesystems/openSUSE_$RELEASE"
  if [ $? -ne 0 ]; then
-  echo 'Add Filesystems repositories'
+echo 'Add Filesystems repositories'
   zypper addrepo -f "http://download.opensuse.org/repositories/filesystems/openSUSE_$RELEASE/" "openSUSE BuildService - filesystems" # for example, here you can get unetbootin
   echo 'Done.'
  fi
@@ -124,7 +124,7 @@ install_unofficial_com_repo() {
  # Lazy Kent
  zypper lr -u | grep -i "http://download.opensuse.org/repositories/home:/Lazy_Kent/openSUSE_$RELEASE/"
  if [ $? -ne 0 ]; then
-  echo 'Add Lazy Kent repositories'
+echo 'Add Lazy Kent repositories'
   zypper addrepo -f "http://download.opensuse.org/repositories/home:/Lazy_Kent/openSUSE_$RELEASE/" "Lazy Kent" # for example, here you can get keepassx
   echo 'Done.'
  fi
@@ -132,7 +132,7 @@ install_unofficial_com_repo() {
  # VLC official
  zypper lr -u | grep -i "http://download.videolan.org/pub/vlc/SuSE/$RELEASE"
  if [ $? -ne 0 ]; then
-  echo 'Add VLC repositories'
+echo 'Add VLC repositories'
   zypper addrepo -f "http://download.videolan.org/pub/vlc/SuSE/$RELEASE/" "VLC"
   echo 'Done.'
  fi
@@ -178,7 +178,7 @@ install_various_servers() {
  echo 'What server would you like to do? (Enter the number of your choice)'
  echo ''
  while true; do
-  echo '1. Install LAMP server ?'
+echo '1. Install LAMP server ?'
   echo '2. Install SSH server ?'
   echo '3. Install FTP server ? (It can configure two daemons: pure-ftpd and vsftpd)'
   echo '4. Install DHCP server ?'
@@ -190,7 +190,7 @@ install_various_servers() {
   echo '10. Install HTTP server (Basic apache2) ?'
   echo '11. Return'
   echo ''
-  read -p 'Choose Command: ' INPUT     
+  read -p 'Choose Command: ' INPUT
  # This package is installed if a pattern is selected to have a working update path
  if [ "$INPUT" -eq 1 ]; then
    $ZYPPER install patterns-openSUSE-lamp_server
@@ -198,12 +198,12 @@ install_various_servers() {
    install_various_servers
  # This package contains the YaST2 component for SSH server configuration.
  elif [ "$INPUT" -eq 2 ]; then
-     case $RELEASE in
+case $RELEASE in
           '12.3')
             $ZYPPER install yast2-sshd
             echo 'Done.'
             install_various_servers ;;
-           * ) 
+           * )
             echo "This package is not supported in openSUSE $RELEASE"
             install_various_servers
      esac
@@ -240,7 +240,7 @@ install_various_servers() {
  # This package contains the YaST2 component for DNS server configuration.
  elif [ "$INPUT" -eq 9 ]; then
      $ZYPPER install yast2-dns-server bind
-     echo 'Done.'
+echo 'Done.'
      install_various_servers
  # This package contains the YaST2 component for HTTP server (Apache2) configuration.
  elif [ "$INPUT" -eq 10 ]; then
@@ -249,7 +249,7 @@ install_various_servers() {
      install_various_servers
  # Return
  elif [ "$INPUT" -eq 11 ]; then
-  clear && main
+clear && main
  else
 # Invalid Choice
     echo 'Invalid, choose again.'
@@ -270,6 +270,10 @@ install_devlopment_tools() {
                  git \
                  glade \
                  java-1_7_0-openjdk-devel \
+                 kernel-headers \
+                 kernel-devel \
+                 kernel-desktop-devel \
+                 make \
                  python3 \
                  qt-creator \
                  ruby \
@@ -285,7 +289,7 @@ install_virtualization_tools() {
  echo 'What would you like to do? (Enter the number of your choice)'
  echo ''
  while true; do
-  echo '1. Install Oracle VM VirtualBox (Not VirtualBox-OSE) ?'
+echo '1. Install Oracle VM VirtualBox (Not VirtualBox-OSE) ?'
   echo '2. Install Install XEN management tools (manage with yast2) ?'
   echo '3. Install Install KVM ?'
   echo '4. Return'
@@ -294,27 +298,27 @@ install_virtualization_tools() {
  
  # Oracle VM VirtualBox
   if [ "$INPUT" -eq 1 ]; then
-   echo 'Searching VirtualBox...'
+echo 'Searching VirtualBox...'
    $ZYPPER search -i VirtualBox | grep -i 'Oracle VM VirtualBox' # Check if Oracle VM VirtualBox is install (if not, download and install)
    if [ $? -ne 0 ]; then
-    move_tmp_dir
+move_tmp_dir
     echo 'Installing Oracle VM VirtualBox...'
     $ZYPPER install kernel-devel \
                     kernel-desktop-devel \
                     gcc \
                     make
      if [ $(uname -i) = 'i386' ]; then
-      echo 'Downloading Oracle VM VirtualBox i586...'
-      wget http://download.virtualbox.org/virtualbox/4.3.4/VirtualBox-4.3-4.3.4_91027_openSUSE123-1.i586.rpm
-      $ZYPPER install VirtualBox-4.3-4.3.4_91027_openSUSE123-1.i586.rpm
+echo 'Downloading Oracle VM VirtualBox i586...'
+      wget http://download.virtualbox.org/virtualbox/4.3.12/VirtualBox-4.3-4.3.12_93733_openSUSE123-1.i586.rpm
+      $ZYPPER install VirtualBox-4.3-4.3.12_93733_openSUSE123-1.i586.rpm
      elif [ $(uname -i) = 'x86_64' ]; then
-      echo 'Downloading Oracle VM VirtualBox x86_64...'
-      wget http://download.virtualbox.org/virtualbox/4.3.4/VirtualBox-4.3-4.3.4_91027_openSUSE123-1.x86_64.rpm
-      $ZYPPER install VirtualBox-4.3-4.3.4_91027_openSUSE123-1.x86_64.rpm
+echo 'Downloading Oracle VM VirtualBox x86_64...'
+      wget http://download.virtualbox.org/virtualbox/4.3.12/VirtualBox-4.3-4.3.12_93733_openSUSE123-1.x86_64.rpm
+      $ZYPPER install VirtualBox-4.3-4.3.12_93733_openSUSE123-1.x86_64.rpm
      fi
-    rm *.rpm # Clean rpm in custom tmp dir
+rm *.rpm # Clean rpm in custom tmp dir
    fi
-  echo 'Done.'
+echo 'Done.'
   install_virtualization_tools
    
   # Meta package for pattern xen_server
@@ -331,11 +335,11 @@ install_virtualization_tools() {
      
   # Return
   elif [ "$INPUT" -eq 4 ]; then
-   clear && main
+clear && main
 
   # Invalid Choice
   else
-   echo 'Invalid, choose again.'
+echo 'Invalid, choose again.'
    install_virtualization_tools
   fi
 done
@@ -348,7 +352,7 @@ install_thirdparty_applications() {
  echo 'What would you like to do? (Enter the number of your choice)'
  echo ''
  while true; do
-  echo '1. Install Google Chrome ?'
+echo '1. Install Google Chrome ?'
   echo '2. Install Google Music ?'
   echo '3. Install Steam ?'
   echo '4. Install TeamViewer ?'
@@ -360,7 +364,7 @@ install_thirdparty_applications() {
   read -p 'Choose Command: ' INPUT
  # Google Chrome
  if [ "$INPUT" -eq 1 ]; then
-  zypper lr -u | grep -i "http://dl.google.com/linux/chrome/rpm/stable/x86_64" # Cheking if google-chrome is in your repositories
+zypper lr -u | grep -i "http://dl.google.com/linux/chrome/rpm/stable/x86_64" # Cheking if google-chrome is in your repositories
   if [ $? -ne 0 ]; then # if not, add it
    echo 'Add google-chrome repositories'
    zypper addrepo -f "http://dl.google.com/linux/chrome/rpm/stable/x86_64" "google-chrome"
@@ -371,9 +375,9 @@ install_thirdparty_applications() {
  
  # Google musique manager
  elif [ "$INPUT" -eq 2 ]; then
-  zypper lr -u | grep -i "http://dl.google.com/linux/musicmanager/rpm/stable/x86_64"
+zypper lr -u | grep -i "http://dl.google.com/linux/musicmanager/rpm/stable/x86_64"
   if [ $? -ne 0 ]; then
-   echo 'Add google-musicmanager-beta repositories'
+echo 'Add google-musicmanager-beta repositories'
    zypper addrepo -f "http://dl.google.com/linux/musicmanager/rpm/stable/x86_64" "google-musicmanager"
   fi
    $ZYPPER install google-musicmanager-beta
@@ -382,9 +386,9 @@ install_thirdparty_applications() {
  
  # Steam
  elif [ "$INPUT" -eq 3 ]; then
-  zypper lr -u | grep -i "http://download.opensuse.org/repositories/games:/tools/openSUSE_$RELEASE"
+zypper lr -u | grep -i "http://download.opensuse.org/repositories/games:/tools/openSUSE_$RELEASE"
   if [ $? -ne 0 ]; then
-   echo 'Add official community repositories Games'
+echo 'Add official community repositories Games'
    zypper addrepo -f "http://download.opensuse.org/repositories/games:/tools/openSUSE_$RELEASE/" "Games Tools"
   fi
   $ZYPPER install steam
@@ -395,40 +399,40 @@ install_thirdparty_applications() {
  elif [ "$INPUT" -eq 4 ]; then
      $ZYPPER search -i | grep -i teamviewer # Check if teamviewer is install (if not, download and install)
      if [ $? -ne 0 ]; then
-      move_tmp_dir
+move_tmp_dir
       echo 'Downloading TeamViewer...'
       wget http://downloadeu1.teamviewer.com/download/teamviewer_linux.rpm # Download rpm on teamviewer website (no_arch)
       echo 'Installing TeamViewer...'
       $ZYPPER install teamviewer_linux.rpm
       rm *.rpm # Clean rpm in custom tmp dir
      else
-      echo 'TeamViewer is already installed'
+echo 'TeamViewer is already installed'
      fi
-  cd
-  echo 'Done.'
+cd
+echo 'Done.'
   install_thirdparty_applications
  
  # Skype
  elif [ "$INPUT" -eq 5 ]; then
      $ZYPPER search -i | grep -i skype # Check if skype is install (if not, download and install)
      if [ $? -ne 0 ]; then
-      move_tmp_dir
+move_tmp_dir
       echo 'Downloading Skype...'
-      wget http://download.skype.com/linux/skype-4.2.0.11-suse.i586.rpm # Download rpm on skype website (juste 32bit rpm)
+      wget http://download.skype.com/linux/skype-4.2.0.13-suse.i586.rpm # Download rpm on skype website (juste 32bit rpm)
       echo 'Installing Skype.....'
-      $ZYPPER install skype-4.2.0.11-suse.i586.rpm
+      $ZYPPER install skype-4.2.0.13-suse.i586.rpm
       rm *.rpm # Clean rpm in custom tmp dir
      else
-      echo 'Skype... is already installed'
+echo 'Skype... is already installed'
      fi
-     echo 'Done.'
+echo 'Done.'
      install_thirdparty_applications
  
  # DVD playback tools (need VLC repositories for libdvdcss2)
  elif [ "$INPUT" -eq 6 ]; then
-  zypper lr -u | grep -i "http://download.videolan.org/pub/vlc/SuSE/$RELEASE"
+zypper lr -u | grep -i "http://download.videolan.org/pub/vlc/SuSE/$RELEASE"
   if [ $? -ne 0 ]; then
-   echo 'Add VLC repositories'
+echo 'Add VLC repositories'
    zypper addrepo -f "http://download.videolan.org/pub/vlc/SuSE/$RELEASE/" "VLC"
   fi
   $ZYPPER install libdvdcss2
@@ -437,12 +441,12 @@ install_thirdparty_applications() {
  
  # Installing the packages needed to playback most multimedia formats - including MP3, DVDs etc., with Kaffeine (video) and Amarok (audio)
  elif [ "$INPUT" -eq 7 ]; then
-  zypper lr -u | grep -i "http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_$RELEASE"
+zypper lr -u | grep -i "http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_$RELEASE"
   if [ $? -ne 0 ]; then
-   echo 'Add Packman Repository'
+echo 'Add Packman Repository'
    zypper addrepo -f "http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_$RELEASE/" "Packman Repository"
   fi
-  echo 'PLEASE : You may be asked if you want to allow vendor change for some packages - allow it'
+echo 'PLEASE : You may be asked if you want to allow vendor change for some packages - allow it'
   $ZYPPER install ffmpeg \
                   k3b-codecs \
                   gstreamer-fluendo-mp3 \
@@ -457,9 +461,9 @@ install_thirdparty_applications() {
      
 # Return
  elif [ "$INPUT" -eq 8 ]; then
-  clear && main
+clear && main
  else
-  echo 'Invalid, choose again.'
+echo 'Invalid, choose again.'
   thirdparty
  fi
 done
@@ -472,7 +476,7 @@ clean_system() {
  echo 'What would you like to do? (Enter the number of your choice)'
  echo ''
  while true; do
- echo ''
+echo ''
  echo '1. Clean Package Cache ?'
  echo '2. Clean tildes in users home ?'
  echo '3. Return?'
@@ -481,24 +485,24 @@ clean_system() {
 
  # Clean Package Cache
  if [ "$INPUT" -eq 1 ]; then
-  zypper clean --all
+zypper clean --all
   echo 'Done.'
   clean_system
    
  # Clean tildes in user's home. Tilde is a backup file
  elif [ "$INPUT" -eq 2 ]; then
-  echo 'Cleaning tildes ...'
+echo 'Cleaning tildes ...'
   find /home -name "*~" -exec rm -i {} \; -or -name ".*~" -exec rm -i {} \;
   echo 'Done.'
   clean_system
      
  # Return to the main menu
  elif [ "$INPUT" -eq 3 ]; then
-  clear && main
+clear && main
      
  # Invalid Choice
  else
-  echo 'Invalid, choose again.'
+echo 'Invalid, choose again.'
   clean_system
  fi
 done
@@ -509,9 +513,9 @@ bye_bye() {
  echo ''
  read -p 'Are you sure you want to quit? (Y/n) '
  if [ "$REPLY" == 'n' ]; then
-  clear && main
+clear && main
  else
- exit 12
+exit 12
  fi
 }
 
@@ -522,7 +526,7 @@ echo ''
 echo 'What would you like to do? (Enter the number of your choice)'
 echo ''
 while true; do
- echo '1. Perform system update ?'
+echo '1. Perform system update ?'
  echo '2. Apply the needed patches ?'
  echo '3. Install official community repositories ?'
  echo '4. Install unofficial community repositories ?'
@@ -535,7 +539,7 @@ while true; do
  echo '11. Cleanup the system ?'
  echo '12. Quit?'
  echo ''
- read -p 'Choose Command: ' INPUT     
+ read -p 'Choose Command: ' INPUT
  case $INPUT in
            1) clear && system_upgrade ;;
            2) clear && system_patch ;;
