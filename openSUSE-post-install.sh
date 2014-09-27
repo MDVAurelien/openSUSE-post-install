@@ -330,7 +330,19 @@ echo 'Done.'
  
   # kvm - Kernel-based Virtual Machine
   elif [ "$INPUT" -eq 3 ]; then
-   $ZYPPER install kvm
+   case $RELEASE in
+          '13.1')
+            $ZYPPER install kvm
+            echo 'Done.'
+            install_virtualization_tools ;;
+          '13.2')
+            $ZYPPER install patterns-openSUSE-xen_server
+            echo 'Done.'
+            install_virtualization_tools ;;
+           * )
+            echo "This package is not supported in openSUSE $RELEASE"
+            install_virtualization_tools
+   esac
    echo 'Done.'
    install_virtualization_tools
      
