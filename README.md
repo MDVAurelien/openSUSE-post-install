@@ -20,6 +20,6 @@ Run from source folder (root):
 
 openSUSE Post Install Script is a simple bash script (highly configurable and based on Libzypp) for automating the reconfiguration of a fresh openSUSE –installing favourite applications, some servers, virtualization tools etc.. 
 
-It is compatible with openSUSE 12.3 and 13.1, as well as both 32 and 64 bit architectures 
+It is compatible with openSUSE 12.3, 13.1 & 13.2, as well as both 32 and 64 bit architectures 
 
 Feel free to copy, improve and distribute.
