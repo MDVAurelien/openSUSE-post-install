@@ -1,4 +1,11 @@
 ---------------
+Version 0.9.9 -
+---------------
+ * Prepare the script for multiple compatibility (12.3, 13.1 & 13.2)
+ * Update Oracle Virtualbox 4.3-4.3.12_93733 ==> 4.3-4.3.16_95972 (x86_64 & i586)
+ * Update Skype 4.2.0.13 ==> 4.3.0.37
+
+---------------
 Version 0.9.8 -
 ---------------
 
