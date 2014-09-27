@@ -1,6 +1,6 @@
 openSUSE-post-install :
 
-Version: 12.3 / 13.1
+Version: 12.3, 13.1 & 13.2
 
 License: LGPLv3
 
