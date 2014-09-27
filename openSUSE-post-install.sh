@@ -336,7 +336,7 @@ echo 'Done.'
             echo 'Done.'
             install_virtualization_tools ;;
           '13.2')
-            $ZYPPER install patterns-openSUSE-xen_server
+            $ZYPPER install patterns-openSUSE-kvm_server
             echo 'Done.'
             install_virtualization_tools ;;
            * )
