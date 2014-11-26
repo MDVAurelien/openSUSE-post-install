@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # Description:
-# A post-installation bash script for openSUSE 12.3 and 13.1
+# A post-installation bash script for openSUSE 13.1 and 13.2
 #
 # Authors : MDVAurelien (Aurélien Sallé) <android.aurelien.salle@gmail.com>
 #
@@ -20,7 +20,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 RELEASE=$(cat /etc/os-release | grep -i version_id | tr --delete [_='"'][A-Z])
-VERSION='0.9.9' # It's the version of this file
+VERSION='0.9.10' # It's the version of this file
 LICENSE='LGPLv3'
 
 clear
@@ -37,7 +37,6 @@ fi
 
 # Check the openSUSE release
 case $RELEASE in
-            '12.3');;
             '13.1');;
             '13.2');; # Warning : no test yet, please careful!
             * )
@@ -310,12 +309,12 @@ move_tmp_dir
                     make
      if [ $(uname -i) = 'i386' ]; then
 echo 'Downloading Oracle VM VirtualBox i586...'
-      wget http://download.virtualbox.org/virtualbox/4.3.16/VirtualBox-4.3-4.3.16_95972_openSUSE123-1.i586.rpm
-      $ZYPPER install VirtualBox-4.3-4.3.16_95972_openSUSE123-1.i586.rpm
+      wget http://download.virtualbox.org/virtualbox/4.3.20/VirtualBox-4.3-4.3.20_96996_openSUSE123-1.i586.rpm
+      $ZYPPER install VirtualBox-4.3-4.3.20_96996_openSUSE123-1.i586.rpm
      elif [ $(uname -i) = 'x86_64' ]; then
 echo 'Downloading Oracle VM VirtualBox x86_64...'
-      wget http://download.virtualbox.org/virtualbox/4.3.16/VirtualBox-4.3-4.3.16_95972_openSUSE123-1.x86_64.rpm
-      $ZYPPER install VirtualBox-4.3-4.3.16_95972_openSUSE123-1.x86_64.rpm
+      wget http://download.virtualbox.org/virtualbox/4.3.20/VirtualBox-4.3-4.3.20_96996_openSUSE123-1.x86_64.rpm
+      $ZYPPER install VirtualBox-4.3-4.3.20_96996_openSUSE123-1.x86_64.rpm
      fi
 rm *.rpm # Clean rpm in custom tmp dir
    fi
@@ -433,7 +432,7 @@ move_tmp_dir
       echo 'Downloading Skype...'
       wget http://download.skype.com/linux/skype-4.3.0.37-suse.i586.rpm # Download rpm on skype website (juste 32bit rpm)
       echo 'Installing Skype.....'
-      $ZYPPER install skype-4.2.0.13-suse.i586.rpm
+      $ZYPPER install skype-4.3.0.37-suse.i586.rpm
       rm *.rpm # Clean rpm in custom tmp dir
      else
 echo 'Skype... is already installed'
