@@ -1,7 +1,7 @@
 #!/bin/bash
 # -*- coding: utf-8 -*-
 #
-# Description:
+# Description: test
 # A post-installation bash script for openSUSE 13.1 and 13.2
 #
 # Authors : MDVAurelien (Aurélien Sallé) <android.aurelien.salle@gmail.com>
