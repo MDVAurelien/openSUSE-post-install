@@ -1,4 +1,11 @@
 ---------------
+Version 0.9.10 -
+---------------
+ * EOL openSUSE 12.3 support
+ * Update Oracle Virtualbox 4.3-4.3.16_95972 ==> 4.3-4.3.20_96996 (x86_64 & i586)
+ * FIX the no install of Skype 4.3.0.37
+ 
+---------------
 Version 0.9.9 -
 ---------------
  * Prepare the script for multiple compatibility (12.3, 13.1 & 13.2)
