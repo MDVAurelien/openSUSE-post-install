@@ -2,6 +2,7 @@
 Version 0.9.11 -
 ---------------
  * Fix sshd (enable and start with systemd)
+ * Add linux-glibc-devel in developement tools install
  * Fix minor bugs
 
 ---------------
