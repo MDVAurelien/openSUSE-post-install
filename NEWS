@@ -1,4 +1,10 @@
 ---------------
+Version 0.9.11 -
+---------------
+ * Fix sshd (enable and start with systemd)
+ * Fix minor bugs
+
+---------------
 Version 0.9.10 -
 ---------------
  * EOL openSUSE 12.3 support
