@@ -20,7 +20,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 RELEASE=$(cat /etc/os-release | grep -i version_id | tr --delete [_='"'][A-Z])
-VERSION='0.9.10' # It's the version of this file
+VERSION='0.9.11' # It's the version of this file
 LICENSE='LGPLv3'
 
 clear
@@ -38,7 +38,7 @@ fi
 # Check the openSUSE release
 case $RELEASE in
             '13.1');;
-            '13.2');; # Warning : no test yet, please careful!
+            '13.2');;
             * )
             echo "openSUSE $RELEASE is not supported !"
             exit 11
@@ -82,7 +82,7 @@ install_official_com_repo() {
  # openSUSE BuildService - KDE:Extra Repository
  zypper lr -u | grep -i "http://download.opensuse.org/repositories/games/openSUSE_$RELEASE"
  if [ $? -ne 0 ]; then
-echo 'Add official community repositories Games'
+echo 'Add official community KDE:Extra Repository'
   zypper addrepo -f "http://download.opensuse.org/repositories/games/openSUSE_$RELEASE/" "openSUSE BuildService - KDE:Extra"
   echo 'Done.'
  fi
@@ -102,15 +102,7 @@ echo 'Add Packman Repository'
   zypper addrepo -f "http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_$RELEASE/" "Packman Repository"
   echo 'Done.'
  fi
- 
-  # filesystems Repository
- zypper lr -u | grep -i "http://download.opensuse.org/repositories/filesystems/openSUSE_$RELEASE"
- if [ $? -ne 0 ]; then
-echo 'Add Filesystems repositories'
-  zypper addrepo -f "http://download.opensuse.org/repositories/filesystems/openSUSE_$RELEASE/" "openSUSE BuildService - filesystems" # for example, here you can get unetbootin
-  echo 'Done.'
- fi
- 
+
  # Refresh repositories
  echo 'Updating repositories information...'
  $ZYPPER refresh
@@ -179,7 +171,7 @@ install_various_servers() {
  echo ''
  while true; do
 echo '1. Install LAMP server ?'
-  echo '2. Install SSH server ?'
+  echo '2. Install SSH server ? (enable and start with systemctl)'
   echo '3. Install FTP server ? (It can configure two daemons: pure-ftpd and vsftpd)'
   echo '4. Install DHCP server ?'
   echo '5. Install OpenLDAP Server ?'
@@ -196,17 +188,12 @@ echo '1. Install LAMP server ?'
    $ZYPPER install patterns-openSUSE-lamp_server
    echo 'Done.'
    install_various_servers
- # This package contains the YaST2 component for SSH server configuration.
+ # Enable & start sshd (openssh already install) with systemd (systemctl)
  elif [ "$INPUT" -eq 2 ]; then
-case $RELEASE in
-          '12.3')
-            $ZYPPER install yast2-sshd
-            echo 'Done.'
-            install_various_servers ;;
-           * )
-            echo "This package is not supported in openSUSE $RELEASE"
-            install_various_servers
-     esac
+     systemctl enable sshd
+     systemctl start sshd
+     echo 'Done.'
+    install_various_servers
  # This package contains the YaST2 component for FTP configuration. It can configure two daemons: pure-ftpd and vsftpd.
  elif [ "$INPUT" -eq 3 ]; then
      $ZYPPER install yast2-ftp-server
@@ -270,14 +257,13 @@ install_devlopment_tools() {
                  git \
                  glade \
                  java-1_7_0-openjdk-devel \
-                 kernel-headers \
                  kernel-devel \
                  kernel-desktop-devel \
+                 linux-glibc-devel \
                  make \
                  python3 \
                  qt-creator \
-                 ruby \
-                 vim-enhanced
+                 ruby
  echo 'Done.'
  main
 }
@@ -289,7 +275,7 @@ install_virtualization_tools() {
  echo 'What would you like to do? (Enter the number of your choice)'
  echo ''
  while true; do
-echo '1. Install Oracle VM VirtualBox (Not VirtualBox-OSE) ?'
+  echo '1. Install Oracle VM VirtualBox (Not VirtualBox-OSE) ?'
   echo '2. Install Install XEN management tools (manage with yast2) ?'
   echo '3. Install Install KVM ?'
   echo '4. Return'
@@ -298,26 +284,27 @@ echo '1. Install Oracle VM VirtualBox (Not VirtualBox-OSE) ?'
  
  # Oracle VM VirtualBox
   if [ "$INPUT" -eq 1 ]; then
-echo 'Searching VirtualBox...'
+   echo 'Searching VirtualBox...'
    $ZYPPER search -i VirtualBox | grep -i 'Oracle VM VirtualBox' # Check if Oracle VM VirtualBox is install (if not, download and install)
    if [ $? -ne 0 ]; then
-move_tmp_dir
+    move_tmp_dir
+    rm -f /tmp/openSUSE-post-install/*.rpm # if virtualbox rpm exist
     echo 'Installing Oracle VM VirtualBox...'
     $ZYPPER install kernel-devel \
                     kernel-desktop-devel \
                     gcc \
                     make
-     if [ $(uname -i) = 'i386' ]; then
-echo 'Downloading Oracle VM VirtualBox i586...'
-      wget http://download.virtualbox.org/virtualbox/4.3.20/VirtualBox-4.3-4.3.20_96996_openSUSE123-1.i586.rpm
-      $ZYPPER install VirtualBox-4.3-4.3.20_96996_openSUSE123-1.i586.rpm
-     elif [ $(uname -i) = 'x86_64' ]; then
-echo 'Downloading Oracle VM VirtualBox x86_64...'
-      wget http://download.virtualbox.org/virtualbox/4.3.20/VirtualBox-4.3-4.3.20_96996_openSUSE123-1.x86_64.rpm
-      $ZYPPER install VirtualBox-4.3-4.3.20_96996_openSUSE123-1.x86_64.rpm
-     fi
-rm *.rpm # Clean rpm in custom tmp dir
+   if [ $(uname -i) = 'i386' ]; then
+    echo 'Downloading Oracle VM VirtualBox i586...'
+    wget http://download.virtualbox.org/virtualbox/4.3.20/VirtualBox-4.3-4.3.20_96996_openSUSE123-1.i586.rpm
+    $ZYPPER install VirtualBox-4.3-4.3.20_96996_openSUSE123-1.i586.rpm
+   elif [ $(uname -i) = 'x86_64' ]; then
+    echo 'Downloading Oracle VM VirtualBox x86_64...'
+    wget http://download.virtualbox.org/virtualbox/4.3.20/VirtualBox-4.3-4.3.20_96996_openSUSE123-1.x86_64.rpm
+    $ZYPPER install VirtualBox-4.3-4.3.20_96996_openSUSE123-1.x86_64.rpm
    fi
+ rm *.rpm # Clean rpm in custom tmp dir
+ fi
 echo 'Done.'
   install_virtualization_tools
    
